@@ -14,11 +14,17 @@ function Square({value, clickSquareHandler}) {
 
 export default function Board() {
     const [squares, setSquares] = useState(Array(9).fill(null));
+    const [xIsNext, setXIsNext] = useState(true);
 
     function clickHandler(i) {
         const squareList = squares.slice();
-        squareList[i] = "X";
+        if (xIsNext) {
+            squareList[i] = "X";
+        } else {
+            squareList[i] = "O";
+        }
         setSquares(squareList);
+        setXIsNext(!xIsNext);
     }
 
     return (
