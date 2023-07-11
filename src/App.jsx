@@ -58,9 +58,9 @@ function Board({xIsNext, squares, onPlay}) {
 }
 
 export default function Game() {
-    const [xIsNext, setXIsNext] = useState(true);
     const [history, setHistory] = useState([Array(9).fill(null)]);
     const [currentMove, setCurrentMove] = useState(0);
+    const xIsNext = currentMove % 2 === 0;
     const currentSquares = history[currentMove];
 
     // 四角マスの押下をトリガーに実行される処理。
@@ -71,14 +71,12 @@ export default function Game() {
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
         setHistory(nextHistory);
         setCurrentMove(nextHistory.length - 1);
-        setXIsNext(!xIsNext);
     }
 
     // ボタン押下をトリガーにして実行される処理。任意の手まで戻るようにstatusを更新する。
     // 偶数がXの番。奇数がOの番。
     function jumpTo(nextMove) {
         setCurrentMove(nextMove);
-        setXIsNext(nextMove % 2 === 0);
     }
 
     const moves = history.map((squares, move) => {
