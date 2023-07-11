@@ -17,6 +17,9 @@ export default function Board() {
     const [xIsNext, setXIsNext] = useState(true);
 
     function clickHandler(i) {
+        if (squares[i]) {
+            return;
+        }
         const squareList = squares.slice();
         if (xIsNext) {
             squareList[i] = "X";
