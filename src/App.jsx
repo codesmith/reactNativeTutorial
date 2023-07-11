@@ -63,13 +63,19 @@ export default function Game() {
     const [currentMove, setCurrentMove] = useState(0);
     const currentSquares = history[currentMove];
 
+    // 四角マスの押下をトリガーに実行される処理。
+    // nextSquares 
     function handlePlay(nextSquares) {
+        // slice()の第2引数の値は戻り値の要素には含まれない。
+        // currentMove の要素まで戻り値に含めたいので、currentMove + 1 とする。
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
         setHistory(nextHistory);
         setCurrentMove(nextHistory.length - 1);
         setXIsNext(!xIsNext);
     }
 
+    // ボタン押下をトリガーにして実行される処理。任意の手まで戻るようにstatusを更新する。
+    // 偶数がXの番。奇数がOの番。
     function jumpTo(nextMove) {
         setCurrentMove(nextMove);
         setXIsNext(nextMove % 2 === 0);
