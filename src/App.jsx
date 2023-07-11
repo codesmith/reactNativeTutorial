@@ -16,8 +16,16 @@ export default function Board() {
     const [squares, setSquares] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
 
+    const winner = calculateWinner(squares);
+    let status;
+    if (winner) {
+        status = "Winner:" + winner;
+    } else {
+        status = "Next player:" + (xIsNext? "X" : "O")
+    }
+
     function clickHandler(i) {
-        if (squares[i]) {
+        if (squares[i] || calculateWinner(squares)) {
             return;
         }
         const squareList = squares.slice();
@@ -32,6 +40,7 @@ export default function Board() {
 
     return (
         <>
+            <div className="status">{status}</div>
             <div className="board-row">
                 <Square value={squares[0]} clickSquareHandler={() => clickHandler(0)}/>
                 <Square value={squares[1]} clickSquareHandler={() => clickHandler(1)}/>
@@ -66,9 +75,9 @@ function calculateWinner(squares) {
 
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i]
-        if (squares[a] && squares[a] === squares[a] && squares[a] === squares[c]) {
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             return squares[a];
         }
-        return null;
     }
+    return null;
 }
