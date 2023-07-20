@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Text} from 'react-native-elements';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-elements';
 
 export const TodoBoard: React.FC = () => {
   return (
