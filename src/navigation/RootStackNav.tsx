@@ -1,6 +1,19 @@
+import {useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
+import {Button} from 'react-native-elements';
 import {Welcome, Instructions, Login, TodoBoard} from 'screens';
+
+const HeaderRight: React.FC = () => {
+  const navigation = useNavigation();
+  return (
+    <Button
+      type="clear"
+      onPress={() => navigation.navigate('Login')}
+      title='ログイン'
+    />
+  );
+};
 
 const nav = createStackNavigator();
 export const RootStackNav: React.FC = () => {

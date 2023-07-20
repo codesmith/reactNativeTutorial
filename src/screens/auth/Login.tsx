@@ -1,19 +1,22 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Text} from 'react-native-elements';
+import { StyleSheet, View } from 'react-native';
+import { Text, Button } from 'react-native-elements';
 
 export const Login: React.FC = () => {
-  return (
-    <View style={styles.container}>
-      <Text h1>ログイン</Text>
-    </View>
-  );
+    const navigation = useNavigation();
+    return (
+        <View style={styles.container}>
+            <Text h1>ログイン</Text>
+            <Button onPress={() => navigation.navigate('TodoBoard')} title="ログイン" />
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
