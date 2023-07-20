@@ -1,4 +1,4 @@
-import { useUserContext } from 'contexts/UserContext';
+import { useUserContext } from '../../contexts/UserContext';
 import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, Button } from 'react-native-elements';

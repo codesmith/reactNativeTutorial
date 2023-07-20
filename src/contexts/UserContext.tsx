@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { AuthService } from 'services/AuthService';
+import React, {useContext, useState} from 'react';
 
-export class AccountConflictError { }
+import {AuthService} from '../services/AuthService';
 
-export class AuthenticationFailedError { }
+export class AccountConflictError {}
+
+export class AuthenticationFailedError {}
 
 interface ContextValueType {
   signup: (userName: string, password: string) => Promise<void | AccountConflictError>;
@@ -17,7 +18,7 @@ export const UserContext = React.createContext<ContextValueType>({} as ContextVa
 
 export const useUserContext = () => useContext(UserContext);
 
-export const UserContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+export const UserContextProvider: React.FC<React.PropsWithChildren> = ({children}) => {
   const [userName, setUserName] = useState<string>('');
 
   const contextValue: ContextValueType = {

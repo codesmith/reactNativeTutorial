@@ -1,10 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
-import { UserContextProvider } from './contexts/UserContext';
-import { UnauthedStackNav } from './navigation';
+import {NavigationContainer} from '@react-navigation/native';
+import {StatusBar} from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {StyleSheet} from 'react-native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+
+import {UserContextProvider} from './contexts/UserContext';
+import {RootStackNav} from './navigation';
 
 export const App = () => {
   return (
@@ -12,7 +13,7 @@ export const App = () => {
       <StatusBar style="auto" />
       <UserContextProvider>
         <NavigationContainer>
-          <UnauthedStackNav />
+          <RootStackNav />
         </NavigationContainer>
       </UserContextProvider>
     </GestureHandlerRootView>

@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { TodoBoard } from 'screens';
+import { TodoBoard } from '../screens';
 
 const nav = createStackNavigator();
 export const AuthedStackNav: React.FC = () => {

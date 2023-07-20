@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Button } from 'react-native-elements';
-import { Welcome, Instructions, Login } from 'screens';
+import { Welcome, Instructions, Login } from '../screens';
 
 const HeaderRight: React.FC = () => {
   const navigation = useNavigation();
