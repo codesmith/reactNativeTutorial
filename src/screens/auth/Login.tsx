@@ -1,14 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import { useUserContext } from 'contexts/UserContext';
+import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 
 export const Login: React.FC = () => {
-  const navigation = useNavigation();
+  const userContext = useUserContext();
+
+  const login = useCallback(() => {
+    // 後で例外処理を追加するので、今はlintのエラーは無視してください。
+    userContext.login('user', 'password');
+  }, [userContext]);
   return (
     <View style={styles.container}>
       <Text h1>ログイン</Text>
-      <Button onPress={() => navigation.navigate('TodoBoard')} title="ログイン" />
+      <Button onPress={login} title="ログイン" />
     </View>
   );
 };
