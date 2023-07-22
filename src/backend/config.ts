@@ -2,7 +2,7 @@ import {Configuration, Middleware} from './generated-rest-client';
 
 const waitResponse: Middleware = {
   post: async context => {
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise(resolve => setTimeout(resolve, 500));
     return Promise.resolve(context.response);
   },
 };

@@ -20,7 +20,8 @@ export const TodoBoard: React.FC = () => {
   const {theme} = useContext(ThemeContext);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filterType, setFilterType] = useState<FilterType>(FilterType.ALL);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [processingTodos, setProcessingTodos] = useState<number[]>([]);
 
   useFocusEffect(
     useCallback(() => {
@@ -53,13 +54,19 @@ export const TodoBoard: React.FC = () => {
     if (!target) {
       return;
     }
+    setProcessingTodos(prevs => [id, ...prevs]);
     TodoService.putTodo(id, !target.completed)
       .then(returnedTodo =>
         setTodos(prevTodos => {
           return prevTodos.map(todo => (todo.id === id ? returnedTodo : todo));
         }),
       )
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {
+        setProcessingTodos(prevs => {
+          return prevs.filter(processedItem => processedItem !== id);
+        });
+      });
   };
 
   const removeTodo = (id: number) => {
@@ -76,6 +83,7 @@ export const TodoBoard: React.FC = () => {
         contentContainerStyle={styles.todoListContainer}
         toggleTodoCompletion={toggleTodoCompletion}
         removeTodo={removeTodo}
+        processingTodos={processingTodos}
       />
       <Icon
         name="plus"
