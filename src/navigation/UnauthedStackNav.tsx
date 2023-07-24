@@ -1,18 +1,13 @@
-import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import { Button } from 'react-native-elements';
-import { Welcome, Instructions, Login } from '../screens';
+import {Button} from 'react-native-elements';
+
+import {Welcome, SignUp, Login} from '../screens';
 
 const HeaderRight: React.FC = () => {
   const navigation = useNavigation();
-  return (
-    <Button
-      type="clear"
-      onPress={() => navigation.navigate('Login')}
-      title='ログイン'
-    />
-  );
+  return <Button type="clear" onPress={() => navigation.navigate('Login')} title="ログイン" />;
 };
 
 const nav = createStackNavigator();
@@ -22,8 +17,7 @@ export const UnauthedStackNav: React.FC = () => {
       initialRouteName={Welcome.name}
       screenOptions={{
         headerRight: () => <HeaderRight />,
-      }}
-    >
+      }}>
       <nav.Screen
         name="Welcome"
         component={Welcome}
@@ -39,7 +33,13 @@ export const UnauthedStackNav: React.FC = () => {
           headerRight: undefined,
         }}
       />
-      <nav.Screen name="Instructions" component={Instructions} />
+      <nav.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{
+          headerTitle: 'ユーザー登録',
+        }}
+      />
     </nav.Navigator>
   );
 };
