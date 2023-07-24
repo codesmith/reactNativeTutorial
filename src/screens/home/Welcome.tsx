@@ -10,7 +10,10 @@ export const Welcome: React.FC = () => {
     <View style={styles.container}>
       <Logo />
       <Text h1>Welcome</Text>
-      <View>
+      <View style={styles.button}>
+        <Button onPress={() => navigation.navigate('Login')} title="ログイン" />
+      </View>
+      <View style={styles.button}>
         <Button onPress={() => navigation.navigate('Instructions')} title="登録する" />
       </View>
     </View>
@@ -22,5 +25,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    margin: 10,
   },
 });
