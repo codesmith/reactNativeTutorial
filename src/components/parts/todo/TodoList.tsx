@@ -1,5 +1,7 @@
 import React from 'react';
-import {FlatList, StyleProp, StyleSheet, ViewStyle} from 'react-native';
+import {Text, StyleProp, StyleSheet, ViewStyle, TouchableOpacity, View} from 'react-native';
+// import {Button} from 'react-native-elements';
+import {SwipeListView} from 'react-native-swipe-list-view';
 import {Todo} from 'services';
 
 import {TodoItem} from './TodoItem';
@@ -20,7 +22,7 @@ export const TodoList: React.FC<Props> = ({
   processingTodos,
 }) => {
   return (
-    <FlatList
+    <SwipeListView
       style={styles.list}
       contentContainerStyle={contentContainerStyle}
       data={todos}
@@ -34,6 +36,20 @@ export const TodoList: React.FC<Props> = ({
           processing={processingTodos.includes(todo.id)}
         />
       )}
+      renderHiddenItem={({item: todo}) => (
+        <View>
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={() => {
+              removeTodo(todo.id);
+            }}>
+            <Text style={styles.deleteText}>削除</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      rightOpenValue={-75}
+      stopRightSwipe={-75}
+      disableRightSwipe
       keyExtractor={todo => String(todo.id)}
     />
   );
@@ -42,5 +58,20 @@ export const TodoList: React.FC<Props> = ({
 const styles = StyleSheet.create({
   list: {
     flex: 1,
+  },
+  backTextWhite: {
+    color: '#FFF',
+  },
+  deleteButton: {
+    alignSelf: 'flex-end',
+    width: 75,
+    height: 100,
+    backgroundColor: '#CC3333',
+  },
+  deleteText: {
+    lineHeight: 50,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'white',
   },
 });

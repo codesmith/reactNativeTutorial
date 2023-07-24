@@ -35,8 +35,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: 'silver',
-    borderRadius: 10,
-    marginBottom: 10,
+    backgroundColor: 'white',
   },
   todo: {
     flexGrow: 1,
@@ -45,7 +44,6 @@ const styles = StyleSheet.create({
   processing: {
     flex: 1,
     position: 'absolute',
-    borderRadius: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     width: '100%',
     height: '100%',
