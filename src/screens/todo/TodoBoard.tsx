@@ -1,7 +1,7 @@
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {FilterType, TodoFilter, TodoList} from 'components/parts';
 import React, {useCallback, useContext, useState} from 'react';
-import {Alert, StyleSheet, View, ActivityIndicator} from 'react-native';
+import {StyleSheet, View, ActivityIndicator} from 'react-native';
 import {Icon, ThemeContext} from 'react-native-elements';
 import {Todo, TodoService} from 'services';
 
@@ -70,7 +70,23 @@ export const TodoBoard: React.FC = () => {
   };
 
   const removeTodo = (id: number) => {
-    Alert.alert('未実装です');
+    const target = todos.find(todo => todo.id === id);
+    if (!target) {
+      return;
+    }
+    setProcessingTodos(prevs => [id, ...prevs]);
+    TodoService.removeTodo(id)
+      .then(() => {
+        setTodos(prevTodos => {
+          return prevTodos.filter(processedItem => processedItem.id !== id);
+        });
+      })
+      .catch(() => {})
+      .finally(() => {
+        setProcessingTodos(prevs => {
+          return prevs.filter(processedItem => processedItem !== id);
+        });
+      });
   };
 
   const showTodos = todos.filter(showFilter[filterType]);
