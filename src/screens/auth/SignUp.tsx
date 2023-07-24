@@ -1,18 +1,28 @@
+import {useNavigation} from '@react-navigation/native';
 import {KeyboardView} from 'components/basics';
 import {useUserContext} from 'contexts/UserContext';
 import {useFormik} from 'formik';
 import React, {useCallback} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {Button, Input} from 'react-native-elements';
 import * as Yup from 'yup';
 
 export const SignUp: React.FC = () => {
   const userContext = useUserContext();
 
-  const login = useCallback(
+  const navigation = useNavigation();
+  const signup = useCallback(
     (values: {name: string; password: string}) => {
-      userContext.login(values.name, values.password).then(
-        () => {},
+      userContext.signup(values.name, values.password).then(
+        () => {
+          Alert.alert('ユーザー登録完了', 'ユーザー登録が完了しました。\nログイン画面からログインしてください。', [
+            {
+              text: 'Loin',
+              style: 'destructive',
+              onPress: () => navigation.navigate('Login'),
+            },
+          ]);
+        },
         () => {},
       );
     },
@@ -23,10 +33,12 @@ export const SignUp: React.FC = () => {
     initialValues: {name: '', password: ''},
     validationSchema: Yup.object().shape({
       name: Yup.string().required('名前を入力してください'),
-      password: Yup.string().required('パスワードを入力してください'),
+      password: Yup.string()
+        .required('パスワードを入力してください')
+        .min(4, 'パスワードには4文字以上の文字列を指定してください'),
     }),
     validateOnChange: false,
-    onSubmit: login,
+    onSubmit: signup,
   });
 
   return (
@@ -51,7 +63,7 @@ export const SignUp: React.FC = () => {
         <Button
           disabled={formik.isSubmitting}
           onPress={() => formik.handleSubmit()}
-          title="ログインする"
+          title="登録する"
           buttonStyle={styles.button}
         />
       </View>
